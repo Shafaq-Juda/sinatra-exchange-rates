@@ -1,9 +1,75 @@
 require "sinatra"
 require "sinatra/reloader"
+require "http"
+require "json"
 
 get("/") do
-  "
-  <h1>Welcome to your Sinatra App!</h1>
-  <p>Define some routes in app.rb</p>
-  "
+
+  # building the API url, including the API key in the query string
+  exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
+  api_url = "https://api.exchangerate.host/list?access_key="+ exchange_rate_key
+
+  # using HTTP.get to retrieve the API information
+  raw_data = HTTP.get(api_url)
+
+  # converting the raw request to a string
+  raw_data_string = raw_data.to_s
+
+  # convert the string to JSON
+  parsed_data = JSON.parse(raw_data_string)
+
+  # get the symbols from the JSON
+   @symbols = parsed_data
+
+  # render a view template where I show the symbols
+  erb(:homepage)
+end
+
+
+get("/:from_currency") do
+  @original_currency = params.fetch("from_currency")
+
+  exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
+  api_url = "https://api.exchangerate.host/list?access_key="+ exchange_rate_key
+  
+  # some more code to parse the URL and render a view template
+  # using HTTP.get to retrieve the API information
+  raw_data = HTTP.get(api_url)
+
+  # converting the raw request to a string
+  raw_data_string = raw_data.to_s
+
+  # convert the string to JSON
+  parsed_data = JSON.parse(raw_data_string)
+
+   # get the from from the JSON
+   @from = parsed_data
+
+  # render a view template where I show the from
+  erb(:from_currency)
+end
+
+get("/:from_currency/:to_currency") do
+  @original_currency = params.fetch("from_currency")
+  @destination_currency = params.fetch("to_currency")
+
+  exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
+  api_url = "https://api.exchangerate.host/convert?access_key="+ exchange_rate_key + "&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
+  
+  # some more code to parse the URL and render a view template
+
+   # using HTTP.get to retrieve the API information
+   raw_data = HTTP.get(api_url)
+
+   # converting the raw request to a string
+   raw_data_string = raw_data.to_s
+ 
+   # convert the string to JSON
+   parsed_data = JSON.parse(raw_data_string)
+ 
+    # get the to from the JSON
+    @to = parsed_data
+ 
+   # render a view template where I show the to
+   erb(:to_currency)
 end
