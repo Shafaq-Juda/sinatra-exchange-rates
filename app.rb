@@ -15,10 +15,10 @@ get("/") do
   # converting the raw request to a string
   raw_data_string = raw_data.to_s
 
-  # convert the string to JSON
+  # convert the string to hash with JSON
   parsed_data = JSON.parse(raw_data_string)
 
-  # get the symbols from the JSON
+  # get the symbols from the JSON to fetch the required key
    @symbols = parsed_data
 
   # render a view template where I show the symbols
@@ -72,4 +72,14 @@ get("/:from_currency/:to_currency") do
  
    # render a view template where I show the to
    erb(:to_currency)
+end
+
+
+get("/AED")do
+
+  erb(:aed)
+end
+
+get("/AFN")do
+  erb(:afn)
 end
