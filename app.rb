@@ -7,7 +7,7 @@ get("/") do
 
   # building the API url, including the API key in the query string
   exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
-  api_url = "https://api.exchangerate.host/list?access_key="+ exchange_rate_key
+  api_url = "http://api.exchangerate.host/list?access_key="+ exchange_rate_key
 
   # using HTTP.get to retrieve the API information
   raw_data = HTTP.get(api_url)
@@ -25,12 +25,11 @@ get("/") do
   erb(:homepage)
 end
 
-
 get("/:from_currency") do
   @original_currency = params.fetch("from_currency")
 
   exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
-  api_url = "https://api.exchangerate.host/list?access_key="+ exchange_rate_key
+  api_url = "http://api.exchangerate.host/list?access_key="+ exchange_rate_key
   
   # some more code to parse the URL and render a view template
   # using HTTP.get to retrieve the API information
@@ -43,7 +42,7 @@ get("/:from_currency") do
   parsed_data = JSON.parse(raw_data_string)
 
    # get the from from the JSON
-   @from = parsed_data
+   @to_currency = parsed_data
 
   # render a view template where I show the from
   erb(:from_currency)
