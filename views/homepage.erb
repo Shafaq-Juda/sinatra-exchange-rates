@@ -1,7 +1,16 @@
+<!--<%= @currency%>-->
+<!--<%= @currency_key %>-->
+<!--<%= @symbols %>-->
+
 <h1>Currency pairs</h1>
 
+<% @currency_key.each do|one| %>
+  <li>
+    <a href="/<%= one %>">Convert 1 <%= one %> to...</a>
+  </li>
+<% end %>
 
-<ul>
+<!-- <ul>
     <li>
       <a href="/AED">
         Convert 1 AED to...
@@ -852,4 +861,4 @@
         Convert 1 ZWL to...
       </a>
     </li>
-</ul>
+</ul> -->
