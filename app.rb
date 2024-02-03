@@ -83,6 +83,8 @@ get("/:from_currency/:to_currency") do
  
     # get the to from the JSON
     @to = parsed_data
+
+    @to_fetched = @to.fetch("result")
  
    # render a view template where I show the to
    erb(:to_currency)
