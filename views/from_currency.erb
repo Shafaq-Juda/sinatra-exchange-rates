@@ -4,7 +4,7 @@ Go <a href = "/">back.</a>
 <br />
 <% @to_currency_key.each do|to_currency| %>
   <li>
-  <a href="/<%= @from_currency %> /to_currency">Convert 1 <%= @from_currency %> to <%= to_currency %></a>
+  <a href="/<%=@from_currency %>/<%=to_currency%>">Convert 1 <%= @from_currency %> to <%=to_currency %></a>
   </li>
 <% end %>
 
