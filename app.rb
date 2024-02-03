@@ -37,7 +37,7 @@ get("/") do
 end
 
 get("/:from_currency") do
-  @original_currency = params.fetch("from_currency")
+  @from_currency = params.fetch("from_currency")
 
   exchange_rate_key = ENV.fetch("EXCHANGE_RATE_KEY")
   api_url = "http://api.exchangerate.host/list?access_key="+ exchange_rate_key
